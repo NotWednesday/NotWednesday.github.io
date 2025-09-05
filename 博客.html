@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的博客</title>
+    <style>
+        /* CSS样式 */
+        body {
+            font-family: Arial, sans-serif;
+        }
+        header, nav, section, footer {
+            margin: 20px;
+        }
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        nav ul li {
+            display: inline;
+            margin-right: 10px;
+        }
+        nav ul li a {
+            text-decoration: none;
+            color: blue;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>老大欢迎来到我的博客</h1>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="#home">首页</a></li>
+            <li><a href="#about">关于我</a></li>
+            <li><a href="#posts">文章列表</a></li>
+        </ul>
+    </nav>
+    <section id="home">
+        <h2>首页</h2>
+        <p>欢迎来到我的博客，这里是我分享知识和想法的地方。</p>
+    </section>
+    <section id="about">
+        <h2>关于我</h2>
+        <p>我是一名技术爱好者，喜欢探索新鲜事物，分享学习心得。</p>
+    </section>
+    <section id="posts">
+        <h2>文章列表</h2>
+        <article>
+            <h3>文章标题一</h3>
+            <p>这里是文章一的内容...</p>
+        </article>
+        <article>
+            <h3>文章标题二</h3>
+            <p>这里是文章二的内容...</p>
+        </article>
+    </section>
+    <footer>
+        <p>版权所有 &copy; 2023 我的博客</p>
+    </footer>
+
+    <!-- JavaScript代码（如果有的话）可以放在这里，但这里没有具体的JavaScript代码 -->
+    <script>
+        // 这里可以添加JavaScript代码
+        // 例如，可以添加一个简单的点击事件监听器
+        document.addEventListener('DOMContentLoaded', function() {
+            var navLinks = document.querySelectorAll('nav ul li a');
+            navLinks.forEach(function(link) {
+                link.addEventListener('click', function(event) {
+                    event.preventDefault(); // 阻止链接的默认行为
+                    alert('你点击了: ' + this.textContent);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
