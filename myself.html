@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>关于我 - 我的网站</title>
+    <style>
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif; 
+        }
+        
+        body { 
+            line-height: 1.6; 
+            color: #333; 
+            background-color: #f9f9f9; 
+        }
+
+        /* 导航栏样式 */
+        .navbar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            padding: 1rem 5%;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        
+        .navbar.scrolled {
+            padding: 0.5rem 5%;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo a {
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-decoration: none;
+            color: #333;
+        }
+
+        .nav-menu {
+            list-style: none;
+            display: flex;
+            margin: 0;
+        }
+
+        .nav-menu li {
+            margin: 0 1rem;
+            position: relative;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 600;
+            padding: 0.5rem 0;
+            transition: color 0.3s;
+        }
+
+        /* 鼠标悬停的下划线动画 */
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background: #4a90e2;
+            transition: width 0.3s ease;
+        }
+
+        .nav-menu a:hover::after,
+        .nav-menu a.active::after {
+            width: 100%;
+        }
+
+        .nav-menu a:hover,
+        .nav-menu a.active {
+            color: #4a90e2;
+        }
+
+        /* 主内容区域样式 */
+        .about-container {
+            max-width: 1200px;
+            margin: 100px auto 50px;
+            padding: 0 5%;
+        }
+        
+        .about-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .about-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #1e293b;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .about-header p {
+            font-size: 1.1rem;
+            color: #64748b;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* 关于我内容 */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 4rem;
+        }
+        
+        @media (max-width: 768px) {
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .about-image {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            height: 400px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        
+        .avatar {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 12px;
+        }
+        
+        .about-info {
+            padding: 1rem;
+        }
+        
+        .about-info h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: #1e293b;
+        }
+        
+        .about-info p {
+            margin-bottom: 1.5rem;
+            color: #475569;
+            line-height: 1.8;
+        }
+        
+        /* 技能部分 */
+        .skills-section {
+            margin-bottom: 4rem;
+        }
+        
+        .section-title {
+            font-size: 1.8rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            color: #1e293b;
+        }
+        
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        
+        .skill-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+        
+        .skill-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .skill-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: #3b82f6;
+        }
+        
+        .skill-card p {
+            color: #64748b;
+            line-height: 1.6;
+        }
+        
+        /* 时间线 */
+        .timeline-section {
+            margin-bottom: 4rem;
+        }
+        
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: #cbd5e1;
+            left: 50%;
+            margin-left: -1px;
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: 3rem;
+            width: 50%;
+            padding-left: 3rem;
+            box-sizing: border-box;
+        }
+        
+        .timeline-item:nth-child(odd) {
+            left: 0;
+        }
+        
+        .timeline-item:nth-child(even) {
+            left: 50%;
+            padding-left: 0;
+            padding-right: 3rem;
+        }
+        
+        .timeline-content {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .timeline-year {
+            position: absolute;
+            top: 0;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+        
+        .timeline-item:nth-child(odd) .timeline-year {
+            right: -30px;
+        }
+        
+        .timeline-item:nth-child(even) .timeline-year {
+            left: -30px;
+        }
+        
+        .timeline-content h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: #1e293b;
+        }
+        
+        .timeline-content p {
+            color: #64748b;
+            line-height: 1.6;
+        }
+        
+        /* 页脚 */
+        footer { 
+            background: #333; 
+            color: #fff; 
+            text-align: center; 
+            padding: 1.5rem; 
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .timeline::before {
+                left: 30px;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                padding-left: 60px;
+                padding-right: 0;
+                left: 0 !important;
+            }
+            
+            .timeline-item:nth-child(odd) .timeline-year,
+            .timeline-item:nth-child(even) .timeline-year {
+                left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <a href="index.html">我的网站</a>
+            </div>
+            
+            <ul class="nav-menu">
+                <li><a href="index.html">首页</a></li>
+                <li><a href="myself.html" class="active">关于我</a></li>
+                <li><a href="index.html#contact">联系我</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- 关于我内容 -->
+    <div class="about-container">
+        <div class="about-header">
+            <h1>关于我</h1>
+            <p>探索我的故事、技能和专业经历</p>
+        </div>
+        
+        <div class="about-content">
+            <div class="about-image">
+                <img src="https://p5.a.yximgs.com/ufile/atlas/NTI0NjQxMjI3MzAzOTAxMzI3MF8xNzY0MzgyMjU1MTc1_0.jpg" alt="个人头像" class="avatar">
+            </div>
+            
+            <div class="about-info">
+                <h2>你好，我是落叶他乡树</h2>
+                <p>很高兴在很长一段时间认识你(◕ᴗ◕✿)，在未来的彼此道路上为彼此相遇，...好吧，我编不出来了(｡・//ε//・｡)</p>
+                <p>以下都是瞎写的，别相信写着玩的(◕ᴗ◕✿)</p>
+            </div>
+        </div>
+        
+        <div class="skills-section">
+            <h2 class="section-title">专业技能</h2>
+            <div class="skills-container">
+                <div class="skill-card">
+                    <h3>UI/UX 设计</h3>
+                    <p>创建直观的用户界面和流畅的用户体验，专注于可用性和美学平衡。</p>
+                </div>
+                
+                <div class="skill-card">
+                    <h3>前端开发</h3>
+                    <p>精通HTML5、CSS3、JavaScript和现代框架如React和Vue.js。</p>
+                </div>
+                
+                <div class="skill-card">
+                    <h3>响应式设计</h3>
+                    <p>确保网站在所有设备上提供一致且优化的用户体验。</p>
+                </div>
+                
+                <div class="skill-card">
+                    <h3>性能优化</h3>
+                    <p>优化网站加载速度和运行效率，提升用户体验和SEO排名。</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="timeline-section">
+            <h2 class="section-title">职业经历</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-year">2021</div>
+                    <div class="timeline-content">
+                        <h3>设计师 - 创意数字</h3>
+                        <p>负责多个项目的界面设计，创建设计系统和组件库。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 页脚 -->
+    <footer>
+        <p>© 2025 我的网站. 保留所有权利.</p>
+        <p>联系邮箱: 你猜😙</p>
+    </footer>
+
+    <script>
+        // 滚动时改变导航栏样式
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+    </script>
+</body>
+</html>
